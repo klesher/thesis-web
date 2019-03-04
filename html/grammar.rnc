@@ -1,0 +1,133 @@
+##################### Primitive Equivalents ###################
+integer          = attribute DataType   { "integer" },
+		           xsd:integer
+
+double           = attribute DataType   { "double" },
+                   xsd:double
+
+# TODO: Figure out how to better match this with database column size.
+string32         = attribute DataType   { "string" },
+                   xsd:string           { minLength = "1" maxLength = "32" }
+
+string45         = attribute DataType   { "string" },
+                   xsd:string           { minLength = "1" maxLength = "45" }
+string128         = attribute DataType   { "string" },
+                   xsd:string           { minLength = "1" maxLength = "128" }
+string65535      = attribute DataType   { "string" },
+                   xsd:string           { minLength = "1" maxLength = "65535" }
+
+##################### Complex Data Types   ######################
+distanceUnits    = xsd:string           { pattern = "(mm|MM|cm|CM|m|M|in|IN|ft|FT|ly)" }
+temperatureUnits = xsd:string           { pattern = "([fF]|[cC]|[kK])" }
+velocityUnits    = xsd:string           { pattern = "([kK]?[mM]((/[hH])|([pP][hH])))" }
+catalogNames     = ("m"|"ngc")
+
+
+arcdegrees       = element Degrees      { integer }
+arcminutes       = element Minutes      { integer }
+arcseconds       = element Seconds      { double }
+
+latitudeDirection   = xsd:string        { pattern = "([nN]|[sS])" }
+longitudeDirection  = xsd:string        { pattern = "([eE]|[wW])" }
+direction           = (latitudeDirection)|(longitudeDirection)|
+                      xsd:string        { pattern = "([nN]|[sS])([eE]|[wW])" }
+
+
+size             = element Size         { attribute Units { distanceUnits },
+		                                  ( integer | double ) }
+
+note             = element Note         { string65535 }
+
+
+######################### Grammar Definition ###########################3
+start         = astronomyData
+astronomyData = element AstronomyData   { telescope* & observation* }
+
+telescope     = element Telescope       { id & brand? & model? & type? &
+                                          aperture? & focalLength? &
+                                          focalRatio? & mount? & note? }
+id            = element ID              { string32 }
+brand         = element Brand           { string45 }
+model         = element Model           { string45 }
+type          = element Type            { string45 }
+aperture      = element Aperture        { size }
+focalLength   = element FocalLength     { size }
+focalRatio    = element FocalRatio      { (integer | double) }
+mount         = element Mount           { string45 }
+
+observation   = element Observation     { date & time? & location? &
+                                          latitude? & longitude? & weather? &
+                                          seeing? & transparency? & temperature? &
+                                          humidity? & wind? & note? & target* }
+
+date             = element Date         { year & month & day }
+year             = element Year         { integer }
+month            = element Month        { integer }
+day              = element Day          { integer }
+
+time             = ( timeRange | timeExact)
+timeRange        = element TimeRange    { time, time? }
+timeExact        = element Time         { hour, minute }
+hour             = element Hour         { integer }
+minute           = element Minute       { integer }
+
+location         = element Location     { string45 }
+
+latitude         = element Latitude     { attribute Hemisphere { latitudeDirection },
+                                         (angleSexagesimal | angleDecimal) }
+longitude        = element Longitude    { attribute Hemisphere { longitudeDirection },
+                                         (angleSexagesimal | angleDecimal) }
+
+
+angleSexagesimal = element Angle        { attribute Type       { "sexagesimal" },
+                                          attribute Sign       { "+" | "-" },
+                                          (arcdegrees & arcminutes & arcseconds)}
+
+angleDecimal     = element Angle        { attribute Type       { "decimal" },
+                                          attribute Sign       { "+" | "-" },
+                                          double }
+
+angleHours       = element Angle        { attribute Type { "hours" },
+                                        (hours & minutes & seconds) }
+
+#TODO - Clean up hour vs hours, minute vs minutes.
+hours            = element Hours        { integer }
+minutes          = element Minutes      { integer }
+seconds          = element Seconds      { double }
+
+weather          = element Weather      { string45 }
+seeing           = element Seeing       { integer }
+transparency     = element Transparency { integer }
+temperature      = element Temperature  { attribute Units { temperatureUnits },
+                                          double }
+humidity         = element Humidity     { integer | double }
+wind             = element Wind         { attribute Units { velocityUnits },
+                                          attribute Direction { direction },
+                                          double }
+
+target           = element Target       { targetID & time? & targetType? &
+                                          constellation? & (altitude & azimuth)? & designation? &
+                                          telescopeID? & directory? & (rightAscension & declination)? &
+                                          filter? & magnitude? & eyepiece? & note? }
+targetID         = element ID           { string45 }
+altitude         = element Altitude     { angleSexagesimal | angleDecimal }
+azimuth          = element Azimuth      { angleSexagesimal | angleDecimal }
+targetType       = element Type         { string45 }
+constellation    = element Constellation{ string45 }
+eyepiece         = element Eyepiece     { size & note? }
+filter           = element Filter       { string45 }
+magnitude        = element Magnitude    { attribute Sign       { "+" | "-" },
+                                          double }
+designation      = element Designation  { catalog & object }
+catalog          = element Catalog      { attribute DataType   { "string" },
+                                          catalogNames }
+object           = element Object       { integer | string45 }
+telescopeID      = element TelescopeID  { string45 }
+
+rightAscension   = element RightAscension { angleHours }
+declination      = element Declination    { angleSexagesimal }
+
+directory        = element Directory    { path & note? & image* }
+path             = element Path         { string128 }
+image            = element Image        { file, note? }
+file             = element File         { string128 }

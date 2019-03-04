@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AstronomyData>
+  <Telescope>
+    <ID DataType="string">
+      finder
+    </ID>
+  </Telescope>
+  <Telescope>
+    <ID DataType="string">
+      main
+    </ID>
+    <Brand DataType="string">
+      orion
+    </Brand>
+    <Model DataType="string">
+      skyview Pro
+    </Model>
+    <Type DataType="string">
+      maksutov-cassegrain
+    </Type>
+    <Aperture>
+      <Size DataType="integer" Units="mm">
+        150
+      </Size>
+    </Aperture>
+    <FocalLength>
+      <Size DataType="integer" Units="mm">
+        1200
+      </Size>
+    </FocalLength>
+    <FocalRatio DataType="integer">
+      12
+    </FocalRatio>
+    <Mount DataType="string">
+      Equatorial
+    </Mount>
+    <Note DataType="string">
+      Bought in Summer 2009
+    </Note>
+  </Telescope>
+  <Telescope>
+    <ID DataType="string">
+      other
+    </ID>
+    <FocalLength>
+      <Size DataType="double" Units="in">
+        5.500000
+      </Size>
+    </FocalLength>
+    <FocalRatio DataType="double">
+      12.500000
+    </FocalRatio>
+  </Telescope>
+  <Observation>
+    <Date>
+      <Year DataType="integer">
+        2018
+      </Year>
+      <Month DataType="integer">
+        5
+      </Month>
+      <Day DataType="integer">
+        27
+      </Day>
+    </Date>
+  </Observation>
+  <Observation>
+    <Date>
+      <Year DataType="integer">
+        2009
+      </Year>
+      <Month DataType="integer">
+        24
+      </Month>
+      <Day DataType="integer">
+        9
+      </Day>
+    </Date>
+    <TimeRange>
+      <Time>
+        <Hour DataType="integer">
+          20
+        </Hour>
+        <Minute DataType="integer">
+          20
+        </Minute>
+      </Time>
+      <Time>
+        <Hour DataType="integer">
+          20
+        </Hour>
+        <Minute DataType="integer">
+          30
+        </Minute>
+      </Time>
+    </TimeRange>
+    <Location DataType="string">
+      kutztown
+    </Location>
+    <Latitude Hemisphere="N">
+      <Angle Type="sexagesimal" Sign="+">
+        <Degrees DataType="integer">
+          10
+        </Degrees>
+        <Minutes DataType="integer">
+          20
+        </Minutes>
+        <Seconds DataType="double">
+          40.000000
+        </Seconds>
+      </Angle>
+    </Latitude>
+    <Longitude Hemisphere="w">
+      <Angle Type="decimal" DataType="double" Sign="+">
+        29.000000
+      </Angle>
+    </Longitude>
+    <Weather DataType="string">
+      clear
+    </Weather>
+    <Seeing DataType="integer">
+      5
+    </Seeing>
+    <Transparency DataType="integer">
+      5
+    </Transparency>
+    <Temperature DataType="double" Units="k">
+      5.500000
+    </Temperature>
+    <Humidity DataType="double">
+      20.000000
+    </Humidity>
+    <Wind DataType="double" Units="mph" Direction="nw">
+      5.500000
+    </Wind>
+    <Note DataType="string">
+      really bundled up, but started getting cold later on
+    </Note>
+    <Target>
+      <ID DataType="string">
+        Jupiter
+      </ID>
+    </Target>
+    <Target>
+      <ID DataType="string">
+        andromeda galaxy
+      </ID>
+      <TimeRange>
+        <Time>
+          <Hour DataType="integer">
+            21
+          </Hour>
+          <Minute DataType="integer">
+            0
+          </Minute>
+        </Time>
+        <Time>
+          <Hour DataType="integer">
+            23
+          </Hour>
+          <Minute DataType="integer">
+            0
+          </Minute>
+        </Time>
+      </TimeRange>
+      <Altitude>
+        <Angle Type="sexagesimal" Sign="+">
+          <Degrees DataType="integer">
+            24
+          </Degrees>
+          <Minutes DataType="integer">
+            23
+          </Minutes>
+          <Seconds DataType="double">
+            24.000000
+          </Seconds>
+        </Angle>
+      </Altitude>
+      <Azimuth>
+        <Angle Type="decimal" DataType="double" Sign="+">
+          350.000000
+        </Angle>
+      </Azimuth>
+      <Designation>
+        <Catalog DataType="string">
+          m
+        </Catalog>
+        <Object DataType="integer">
+          31
+        </Object>
+      </Designation>
+    </Target>
+    <Target>
+      <ID DataType="string">
+        Jupiter
+      </ID>
+      <Designation>
+        <Catalog DataType="string">
+          ngc
+        </Catalog>
+        <Object DataType="integer">
+          50
+        </Object>
+      </Designation>
+      <TelescopeID DataType="string">
+        finder
+      </TelescopeID>
+      <Directory>
+        <Path DataType="string">
+          C:/Users/kevin/Desktop/images/
+        </Path>
+        <Image>
+          <File DataType="string">
+            jupiter.jpg
+          </File>
+        </Image>
+        <Image>
+          <File DataType="string">
+            jupiter2.jpg
+          </File>
+          <Note DataType="string">
+            looks okay
+          </Note>
+        </Image>
+      </Directory>
+    </Target>
+    <Target>
+      <ID DataType="string">
+        Mars
+      </ID>
+      <Time>
+        <Hour DataType="integer">
+          20
+        </Hour>
+        <Minute DataType="integer">
+          0
+        </Minute>
+      </Time>
+      <Type DataType="string">
+        binary system
+      </Type>
+      <Designation>
+        <Catalog DataType="string">
+          ngc
+        </Catalog>
+        <Object DataType="string">
+          31
+        </Object>
+      </Designation>
+      <Constellation DataType="string">
+        Canis Major
+      </Constellation>
+      <RightAscension>
+        <Angle Type="hours">
+          <Hours DataType="integer">
+            20
+          </Hours>
+          <Minutes DataType="integer">
+            40
+          </Minutes>
+          <Seconds DataType="double">
+            50.000000
+          </Seconds>
+        </Angle>
+      </RightAscension>
+      <Declination>
+        <Angle Type="sexagesimal" Sign="+">
+          <Degrees DataType="integer">
+            40
+          </Degrees>
+          <Minutes DataType="integer">
+            20
+          </Minutes>
+          <Seconds DataType="double">
+            10.000000
+          </Seconds>
+        </Angle>
+      </Declination>
+      <Filter DataType="string">
+        Red
+      </Filter>
+      <Magnitude DataType="double" Sign="+">
+        5.500000
+      </Magnitude>
+      <Eyepiece>
+        <Size DataType="integer" Units="mm">
+          8
+        </Size>
+        <Note DataType="string">
+          celestron
+        </Note>
+      </Eyepiece>
+      <TelescopeID DataType="string">
+        main
+      </TelescopeID>
+      <Directory>
+        <Path DataType="string">
+          ~/Pictures/astrophotography/
+        </Path>
+        <Image>
+          <File DataType="string">
+            /mars/1.jpg
+          </File>
+          <Note DataType="string">
+            Olympus Mons
+          </Note>
+        </Image>
+      </Directory>
+      <Note DataType="string">
+        test
+      </Note>
+    </Target>
+  </Observation>
+  <Observation>
+    <Date>
+      <Year DataType="integer">
+        2018
+      </Year>
+      <Month DataType="integer">
+        5
+      </Month>
+      <Day DataType="integer">
+        28
+      </Day>
+    </Date>
+    <Time>
+      <Hour DataType="integer">
+        20
+      </Hour>
+      <Minute DataType="integer">
+        20
+      </Minute>
+    </Time>
+    <Temperature DataType="double" Units="C">
+      100.000000
+    </Temperature>
+    <Humidity DataType="integer">
+      5
+    </Humidity>
+    <Wind DataType="double" Units="km/h" Direction="N">
+      5.500000
+    </Wind>
+  </Observation>
+</AstronomyData>

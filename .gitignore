@@ -1,0 +1,30 @@
+*.bak
+*.swp
+
+#Gedit Backup files
+*~
+
+# Document lock files
+.~lock.*
+.fuse*
+
+#Lex and yacc generated files
+aol.tab.c
+aol.tab.h
+aol.lex.c
+
+#Make sure we don't commit AOL binary
+compiler/aol
+
+#Generated intermediate bytecode
+*.abc
+#KEEP reference/testing bytecode
+!*.ref.abc
+
+#Make sure we don't commit AOL bytecode generator binary
+codeGenerator/aolCodeGen
+
+# Don't commit diff files.
+*.diff
+
+*.tgz

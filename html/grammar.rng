@@ -1,0 +1,694 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <define name="integer">
+    <a:documentation>Primitive Equivalents ###################</a:documentation>
+    <attribute>
+      <name ns="">DataType</name>
+      <value>integer</value>
+    </attribute>
+    <data type="integer"/>
+  </define>
+  <define name="double">
+    <attribute>
+      <name ns="">DataType</name>
+      <value>double</value>
+    </attribute>
+    <data type="double"/>
+  </define>
+  <define name="string32">
+    <attribute>
+      <name ns="">DataType</name>
+      <value>string</value>
+    </attribute>
+    <data type="string">
+      <param name="minLength">1</param>
+      <param name="maxLength">32</param>
+    </data>
+  </define>
+  <define name="string45">
+    <attribute>
+      <name ns="">DataType</name>
+      <value>string</value>
+    </attribute>
+    <data type="string">
+      <param name="minLength">1</param>
+      <param name="maxLength">45</param>
+    </data>
+  </define>
+  <define name="string128">
+    <attribute>
+      <name ns="">DataType</name>
+      <value>string</value>
+    </attribute>
+    <data type="string">
+      <param name="minLength">1</param>
+      <param name="maxLength">128</param>
+    </data>
+  </define>
+  <define name="string65535">
+    <attribute>
+      <name ns="">DataType</name>
+      <value>string</value>
+    </attribute>
+    <data type="string">
+      <param name="minLength">1</param>
+      <param name="maxLength">65535</param>
+    </data>
+  </define>
+  <define name="distanceUnits">
+    <a:documentation>Complex Data Types   ######################</a:documentation>
+    <data type="string">
+      <param name="pattern">(mm|MM|cm|CM|m|M|in|IN|ft|FT|ly)</param>
+    </data>
+  </define>
+  <define name="temperatureUnits">
+    <data type="string">
+      <param name="pattern">([fF]|[cC]|[kK])</param>
+    </data>
+  </define>
+  <define name="velocityUnits">
+    <data type="string">
+      <param name="pattern">([kK]?[mM]((/[hH])|([pP][hH])))</param>
+    </data>
+  </define>
+  <define name="catalogNames">
+    <choice>
+      <value>m</value>
+      <value>ngc</value>
+    </choice>
+  </define>
+  <define name="arcdegrees">
+    <element>
+      <name ns="">Degrees</name>
+      <ref name="integer"/>
+    </element>
+  </define>
+  <define name="arcminutes">
+    <element>
+      <name ns="">Minutes</name>
+      <ref name="integer"/>
+    </element>
+  </define>
+  <define name="arcseconds">
+    <element>
+      <name ns="">Seconds</name>
+      <ref name="double"/>
+    </element>
+  </define>
+  <define name="latitudeDirection">
+    <data type="string">
+      <param name="pattern">([nN]|[sS])</param>
+    </data>
+  </define>
+  <define name="longitudeDirection">
+    <data type="string">
+      <param name="pattern">([eE]|[wW])</param>
+    </data>
+  </define>
+  <define name="direction">
+    <choice>
+      <ref name="latitudeDirection"/>
+      <ref name="longitudeDirection"/>
+      <data type="string">
+        <param name="pattern">([nN]|[sS])([eE]|[wW])</param>
+      </data>
+    </choice>
+  </define>
+  <define name="size">
+    <element>
+      <name ns="">Size</name>
+      <attribute>
+        <name ns="">Units</name>
+        <ref name="distanceUnits"/>
+      </attribute>
+      <choice>
+        <ref name="integer"/>
+        <ref name="double"/>
+      </choice>
+    </element>
+  </define>
+  <define name="note">
+    <element>
+      <name ns="">Note</name>
+      <ref name="string65535"/>
+    </element>
+  </define>
+  <start>
+    <a:documentation>Grammar Definition ###########################3</a:documentation>
+    <ref name="astronomyData"/>
+  </start>
+  <define name="astronomyData">
+    <element>
+      <name ns="">AstronomyData</name>
+      <interleave>
+        <zeroOrMore>
+          <ref name="telescope"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="observation"/>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="telescope">
+    <element>
+      <name ns="">Telescope</name>
+      <interleave>
+        <ref name="id"/>
+        <optional>
+          <ref name="brand"/>
+        </optional>
+        <optional>
+          <ref name="model"/>
+        </optional>
+        <optional>
+          <ref name="type"/>
+        </optional>
+        <optional>
+          <ref name="aperture"/>
+        </optional>
+        <optional>
+          <ref name="focalLength"/>
+        </optional>
+        <optional>
+          <ref name="focalRatio"/>
+        </optional>
+        <optional>
+          <ref name="mount"/>
+        </optional>
+        <optional>
+          <ref name="note"/>
+        </optional>
+      </interleave>
+    </element>
+  </define>
+  <define name="id">
+    <element>
+      <name ns="">ID</name>
+      <ref name="string32"/>
+    </element>
+  </define>
+  <define name="brand">
+    <element>
+      <name ns="">Brand</name>
+      <ref name="string45"/>
+    </element>
+  </define>
+  <define name="model">
+    <element>
+      <name ns="">Model</name>
+      <ref name="string45"/>
+    </element>
+  </define>
+  <define name="type">
+    <element>
+      <name ns="">Type</name>
+      <ref name="string45"/>
+    </element>
+  </define>
+  <define name="aperture">
+    <element>
+      <name ns="">Aperture</name>
+      <ref name="size"/>
+    </element>
+  </define>
+  <define name="focalLength">
+    <element>
+      <name ns="">FocalLength</name>
+      <ref name="size"/>
+    </element>
+  </define>
+  <define name="focalRatio">
+    <element>
+      <name ns="">FocalRatio</name>
+      <choice>
+        <ref name="integer"/>
+        <ref name="double"/>
+      </choice>
+    </element>
+  </define>
+  <define name="mount">
+    <element>
+      <name ns="">Mount</name>
+      <ref name="string45"/>
+    </element>
+  </define>
+  <define name="observation">
+    <element>
+      <name ns="">Observation</name>
+      <interleave>
+        <ref name="date"/>
+        <optional>
+          <ref name="time"/>
+        </optional>
+        <optional>
+          <ref name="location"/>
+        </optional>
+        <optional>
+          <ref name="latitude"/>
+        </optional>
+        <optional>
+          <ref name="longitude"/>
+        </optional>
+        <optional>
+          <ref name="weather"/>
+        </optional>
+        <optional>
+          <ref name="seeing"/>
+        </optional>
+        <optional>
+          <ref name="transparency"/>
+        </optional>
+        <optional>
+          <ref name="temperature"/>
+        </optional>
+        <optional>
+          <ref name="humidity"/>
+        </optional>
+        <optional>
+          <ref name="wind"/>
+        </optional>
+        <optional>
+          <ref name="note"/>
+        </optional>
+        <zeroOrMore>
+          <ref name="target"/>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="date">
+    <element>
+      <name ns="">Date</name>
+      <interleave>
+        <ref name="year"/>
+        <ref name="month"/>
+        <ref name="day"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="year">
+    <element>
+      <name ns="">Year</name>
+      <ref name="integer"/>
+    </element>
+  </define>
+  <define name="month">
+    <element>
+      <name ns="">Month</name>
+      <ref name="integer"/>
+    </element>
+  </define>
+  <define name="day">
+    <element>
+      <name ns="">Day</name>
+      <ref name="integer"/>
+    </element>
+  </define>
+  <define name="time">
+    <choice>
+      <ref name="timeRange"/>
+      <ref name="timeExact"/>
+    </choice>
+  </define>
+  <define name="timeRange">
+    <element>
+      <name ns="">TimeRange</name>
+      <ref name="time"/>
+      <optional>
+        <ref name="time"/>
+      </optional>
+    </element>
+  </define>
+  <define name="timeExact">
+    <element>
+      <name ns="">Time</name>
+      <ref name="hour"/>
+      <ref name="minute"/>
+    </element>
+  </define>
+  <define name="hour">
+    <element>
+      <name ns="">Hour</name>
+      <ref name="integer"/>
+    </element>
+  </define>
+  <define name="minute">
+    <element>
+      <name ns="">Minute</name>
+      <ref name="integer"/>
+    </element>
+  </define>
+  <define name="location">
+    <element>
+      <name ns="">Location</name>
+      <ref name="string45"/>
+    </element>
+  </define>
+  <define name="latitude">
+    <element>
+      <name ns="">Latitude</name>
+      <attribute>
+        <name ns="">Hemisphere</name>
+        <ref name="latitudeDirection"/>
+      </attribute>
+      <choice>
+        <ref name="angleSexagesimal"/>
+        <ref name="angleDecimal"/>
+      </choice>
+    </element>
+  </define>
+  <define name="longitude">
+    <element>
+      <name ns="">Longitude</name>
+      <attribute>
+        <name ns="">Hemisphere</name>
+        <ref name="longitudeDirection"/>
+      </attribute>
+      <choice>
+        <ref name="angleSexagesimal"/>
+        <ref name="angleDecimal"/>
+      </choice>
+    </element>
+  </define>
+  <define name="angleSexagesimal">
+    <element>
+      <name ns="">Angle</name>
+      <attribute>
+        <name ns="">Type</name>
+        <value>sexagesimal</value>
+      </attribute>
+      <attribute>
+        <name ns="">Sign</name>
+        <choice>
+          <value>+</value>
+          <value>-</value>
+        </choice>
+      </attribute>
+      <interleave>
+        <ref name="arcdegrees"/>
+        <ref name="arcminutes"/>
+        <ref name="arcseconds"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="angleDecimal">
+    <element>
+      <name ns="">Angle</name>
+      <attribute>
+        <name ns="">Type</name>
+        <value>decimal</value>
+      </attribute>
+      <attribute>
+        <name ns="">Sign</name>
+        <choice>
+          <value>+</value>
+          <value>-</value>
+        </choice>
+      </attribute>
+      <ref name="double"/>
+    </element>
+  </define>
+  <define name="angleHours">
+    <element>
+      <name ns="">Angle</name>
+      <attribute>
+        <name ns="">Type</name>
+        <value>hours</value>
+      </attribute>
+      <interleave>
+        <ref name="hours"/>
+        <ref name="minutes"/>
+        <ref name="seconds"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="hours">
+    <element>
+      <name ns="">Hours</name>
+      <ref name="integer"/>
+    </element>
+  </define>
+  <define name="minutes">
+    <element>
+      <name ns="">Minutes</name>
+      <ref name="integer"/>
+    </element>
+  </define>
+  <define name="seconds">
+    <element>
+      <name ns="">Seconds</name>
+      <ref name="double"/>
+    </element>
+  </define>
+  <define name="weather">
+    <element>
+      <name ns="">Weather</name>
+      <ref name="string45"/>
+    </element>
+  </define>
+  <define name="seeing">
+    <element>
+      <name ns="">Seeing</name>
+      <ref name="integer"/>
+    </element>
+  </define>
+  <define name="transparency">
+    <element>
+      <name ns="">Transparency</name>
+      <ref name="integer"/>
+    </element>
+  </define>
+  <define name="temperature">
+    <element>
+      <name ns="">Temperature</name>
+      <attribute>
+        <name ns="">Units</name>
+        <ref name="temperatureUnits"/>
+      </attribute>
+      <ref name="double"/>
+    </element>
+  </define>
+  <define name="humidity">
+    <element>
+      <name ns="">Humidity</name>
+      <choice>
+        <ref name="integer"/>
+        <ref name="double"/>
+      </choice>
+    </element>
+  </define>
+  <define name="wind">
+    <element>
+      <name ns="">Wind</name>
+      <attribute>
+        <name ns="">Units</name>
+        <ref name="velocityUnits"/>
+      </attribute>
+      <attribute>
+        <name ns="">Direction</name>
+        <ref name="direction"/>
+      </attribute>
+      <ref name="double"/>
+    </element>
+  </define>
+  <define name="target">
+    <element>
+      <name ns="">Target</name>
+      <interleave>
+        <ref name="targetID"/>
+        <optional>
+          <ref name="time"/>
+        </optional>
+        <optional>
+          <ref name="targetType"/>
+        </optional>
+        <optional>
+          <ref name="constellation"/>
+        </optional>
+        <optional>
+          <interleave>
+            <ref name="altitude"/>
+            <ref name="azimuth"/>
+          </interleave>
+        </optional>
+        <optional>
+          <ref name="designation"/>
+        </optional>
+        <optional>
+          <ref name="telescopeID"/>
+        </optional>
+        <optional>
+          <ref name="directory"/>
+        </optional>
+        <optional>
+          <interleave>
+            <ref name="rightAscension"/>
+            <ref name="declination"/>
+          </interleave>
+        </optional>
+        <optional>
+          <ref name="filter"/>
+        </optional>
+        <optional>
+          <ref name="magnitude"/>
+        </optional>
+        <optional>
+          <ref name="eyepiece"/>
+        </optional>
+        <optional>
+          <ref name="note"/>
+        </optional>
+      </interleave>
+    </element>
+  </define>
+  <define name="targetID">
+    <element>
+      <name ns="">ID</name>
+      <ref name="string45"/>
+    </element>
+  </define>
+  <define name="altitude">
+    <element>
+      <name ns="">Altitude</name>
+      <choice>
+        <ref name="angleSexagesimal"/>
+        <ref name="angleDecimal"/>
+      </choice>
+    </element>
+  </define>
+  <define name="azimuth">
+    <element>
+      <name ns="">Azimuth</name>
+      <choice>
+        <ref name="angleSexagesimal"/>
+        <ref name="angleDecimal"/>
+      </choice>
+    </element>
+  </define>
+  <define name="targetType">
+    <element>
+      <name ns="">Type</name>
+      <ref name="string45"/>
+    </element>
+  </define>
+  <define name="constellation">
+    <element>
+      <name ns="">Constellation</name>
+      <ref name="string45"/>
+    </element>
+  </define>
+  <define name="eyepiece">
+    <element>
+      <name ns="">Eyepiece</name>
+      <interleave>
+        <ref name="size"/>
+        <optional>
+          <ref name="note"/>
+        </optional>
+      </interleave>
+    </element>
+  </define>
+  <define name="filter">
+    <element>
+      <name ns="">Filter</name>
+      <ref name="string45"/>
+    </element>
+  </define>
+  <define name="magnitude">
+    <element>
+      <name ns="">Magnitude</name>
+      <attribute>
+        <name ns="">Sign</name>
+        <choice>
+          <value>+</value>
+          <value>-</value>
+        </choice>
+      </attribute>
+      <ref name="double"/>
+    </element>
+  </define>
+  <define name="designation">
+    <element>
+      <name ns="">Designation</name>
+      <interleave>
+        <ref name="catalog"/>
+        <ref name="object"/>
+      </interleave>
+    </element>
+  </define>
+  <define name="catalog">
+    <element>
+      <name ns="">Catalog</name>
+      <attribute>
+        <name ns="">DataType</name>
+        <value>string</value>
+      </attribute>
+      <ref name="catalogNames"/>
+    </element>
+  </define>
+  <define name="object">
+    <element>
+      <name ns="">Object</name>
+      <choice>
+        <ref name="integer"/>
+        <ref name="string45"/>
+      </choice>
+    </element>
+  </define>
+  <define name="telescopeID">
+    <element>
+      <name ns="">TelescopeID</name>
+      <ref name="string45"/>
+    </element>
+  </define>
+  <define name="rightAscension">
+    <element>
+      <name ns="">RightAscension</name>
+      <ref name="angleHours"/>
+    </element>
+  </define>
+  <define name="declination">
+    <element>
+      <name ns="">Declination</name>
+      <ref name="angleSexagesimal"/>
+    </element>
+  </define>
+  <define name="directory">
+    <element>
+      <name ns="">Directory</name>
+      <interleave>
+        <ref name="path"/>
+        <optional>
+          <ref name="note"/>
+        </optional>
+        <zeroOrMore>
+          <ref name="image"/>
+        </zeroOrMore>
+      </interleave>
+    </element>
+  </define>
+  <define name="path">
+    <element>
+      <name ns="">Path</name>
+      <ref name="string128"/>
+    </element>
+  </define>
+  <define name="image">
+    <element>
+      <name ns="">Image</name>
+      <ref name="file"/>
+      <optional>
+        <ref name="note"/>
+      </optional>
+    </element>
+  </define>
+  <define name="file">
+    <element>
+      <name ns="">File</name>
+      <ref name="string128"/>
+    </element>
+  </define>
+</grammar>

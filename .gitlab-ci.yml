@@ -1,0 +1,12 @@
+image: php:7.2
+
+before_script:
+    - apt update -yqq
+    - apt install python3 python3-pip -yqq
+    - pip3 install rnc2rng
+
+compiler:
+    script:
+        - rnc2rng html/grammar.rnc > html/grammar.rng;
+# Temporarily suspend this since it relies on the database.
+#        - php testing/relaxNGTest.php
